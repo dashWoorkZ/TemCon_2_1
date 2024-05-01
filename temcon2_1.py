@@ -10,7 +10,6 @@ from PIL import ImageTk, Image
 window = tk.Tk()
 window.title("TemCon 2")
 window.geometry("310x350")
-window.appearance_mode("light")
 window.configure(background="burlywood")
 style=ttk.Style()   # ttk Style Library
 menu = tk.Menu(window, background="antiquewhite")
