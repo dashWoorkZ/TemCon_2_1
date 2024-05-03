@@ -9,7 +9,8 @@ from PIL import ImageTk, Image
 import requests                #=
 from tkinter import messagebox #=
 # ===============================
-
+            
+                
 #Main Window
 window = tk.Tk()
 
@@ -97,7 +98,7 @@ apps_menu.add_command(label = "Exit", command = lambda: quit_main())
 menu.add_cascade(label ="Apps", menu = apps_menu, foreground="#854c0c", background="burlywood", activebackground="antiquewhite", activeforeground="burlywood")
 # info Menu to display the info page
 info_menu = tk.Menu(menu, tearoff = False, activeforeground="antiquewhite", activebackground="#5c3608", background="antiquewhite", foreground="#5c3608")
-info_menu.add_command(label = "Lawful Notice", command=lambda: get_Lawful())
+info_menu.add_command(label = "Lawful Notice", command=lambda: open_privacy_window())
 info_menu.add_command(label = "Contact", command=lambda: open_contact_window())
 info_menu.add_command(label = "Donate", command=lambda: open_donate_window())
 menu.add_cascade(label ="Info", menu = info_menu, activeforeground="antiquewhite", activebackground="#5c3608", background="antiquewhite", foreground="#5c3608")
@@ -119,9 +120,9 @@ def display_selected(choice):
         breakpoint
 
 def store_selected(choice):
-        choice = scale.get()
-        scale.set(choice)
-        scaleTemp.delete(0, END)
+        choice = convScale.get()
+        convScale.set(choice)
+        live_city_temp_entry.delete(0, END)
         clearLiveTable()
         breakpoint
         
@@ -131,7 +132,6 @@ def getMain():
         clearLiveTable()
         liveconv_frame.grid_forget()
         manconv_frame.grid_forget()
-        lawful_privacy_frame.grid_forget()
         hero_frame.grid(row=1, column=0, columnspan=4)
         temcon_frame.grid(row=1, column=0, columnspan=4)
         breakpoint
@@ -146,7 +146,6 @@ def showLive():
         live_report_frame.grid_forget()
         temcon_frame.grid_forget()
         hero_frame.grid_forget()
-        lawful_privacy_frame.grid_forget()
         liveconv_frame.grid(row=1, column=0, columnspan=4)
         breakpoint
 
@@ -160,35 +159,8 @@ def showManual():
         weather_report_frame.grid_forget()
         temcon_frame.grid_forget()
         hero_frame.grid_forget()
-        lawful_privacy_frame.grid_forget()
         manconv_frame.grid(row=1, column=0, columnspan=4)
         breakpoint
-
-
-def hideManual():
-        manconv_frame.grid_forget()
-        breakpoint
-
-
-def get_Lawful():
-        window.geometry("285x322")
-        temcon_frame.grid_forget()
-        manconv_frame.grid_forget()
-        hero_frame.grid_forget()
-        #liveconv_frame.grid_forget()
-        lawful_privacy_frame.grid(row=0, column=0, columnspan=4, sticky="nsew")
-        breakpoint
-
-
-
-def hideLawful():
-        lawful_privacy_frame.grid_forget()
-        window.geometry("310x320")
-        #liveconv_frame.grid_forget()
-        hero_frame.grid(row=1, column=0, columnspan=4)
-        temcon_frame.grid(row=1, column=0, columnspan=4)
-        breakpoint
-
 
 
 # Apps Menu Item to Exit the Program
@@ -235,12 +207,12 @@ def clearManualWeather():
         temperature_label.configure(style="livedesclLabelDark.TLabel", font=("Times New Romant", 30, "bold"), text= "", anchor="center")
         breakpoint
 
+
 # ======================================================================================================================================
 # ================================================================ Start Main Frame Layout =============================================
 # ======================================================================================================================================
 
 temcon_program_frame = tk.Frame(master=window)
-#temcon_program_frame.configure()
 temcon_program_frame.pack(fill="both", expand=False, side="top", anchor="center")
 tup_frame = tk.Frame(master=temcon_program_frame)
 tup_frame.configure()
@@ -266,12 +238,10 @@ temcon_logo_label.grid(row=0, column=0, columnspan=2, ipadx=5, ipady=10)
 # ---------------------------------------------------------------#
 # ============= Logo to be put in a Canvas ======================#
 
-
 # Openweather
 weather_labelframe = ttk.LabelFrame(master =temcon_frame, text="OPENWEATHER", height=50, width=150)
 weather_labelframe.configure(style="tested.TLabel")
 weather_labelframe.grid(row=0, column=2, columnspan=2, sticky=tk.N, pady=5, padx=15)
-
 
 # ============= Logo to be put in a Canvas ======================#
 # ---------------------------------------------------------------#
@@ -282,8 +252,6 @@ weather_logo_label.configure(style="temconLight.TLabel", justify="center", ancho
 weather_logo_label.grid(row=0, column=2, columnspan=2, ipadx=10, ipady=10)
 # ---------------------------------------------------------------#
 # ============= Logo to be put in a Canvas ======================#
-
-
 temcon_frame.grid(row=1, column=0, columnspan=4, rowspan=2, sticky="nsew")
 
 # Sponsored Advertising Frame
@@ -295,7 +263,6 @@ hero_frame_label = ttk.Label(hero_frame)
 hero_frame_label.configure(style="heroFrameLabelLight.TLabel", font=("Roboto, sans-serif", 7, "bold"), text="Jeanette's Impressions Art\njeanette.elizabeth@dashwoorkz.ca\nCommunity Services Director", justify="center", anchor="center")
 hero_frame_label.grid(row=0, column=0, ipady=5, padx=3, ipadx=10, sticky="w")
 
-
 # ============= Logo to be put in a Canvas ======================#
 # ---------------------------------------------------------------#
 # jeia Logo Image used in Advertising Frame
@@ -306,15 +273,13 @@ jeia_logo_label.grid(row=0, column=1, sticky="e", pady=5)
 # ---------------------------------------------------------------#
 # ============= Logo to be put in a Canvas ======================#
 
-
 feedback_frame = tk.Frame(master=hero_frame)
 feedback_frame.configure(bg="#4f788a")
 feedback_frame.grid(row=1, column=0, columnspan=4, padx= 2)
 
-
 # ============= Logo to be put in a Canvas ======================#
 # ---------------------------------------------------------------#
-# jeia Logo Image used in Advertising Frame
+# dss Logo Image 
 dss_logo = ImageTk.PhotoImage(Image.open("imgs/dss_logo.png"))
 dss_logo_label = ttk.Label(master = feedback_frame,image=dss_logo)
 dss_logo_label.configure(style="heroFrameLabelLight.TLabel", anchor="center")
@@ -325,7 +290,7 @@ dss_logo_label.grid(row=0, column=0, pady=10, padx=10, ipadx=5, ipady=5, sticky=
 feedback_frame_label = ttk.Label(master=feedback_frame)
 feedback_frame_label.configure(style="heroFrameLabelLight.TLabel", font=("Roboto, sans-serif", 7, "bold"), wraplength=155, anchor="center", justify="center", text="FeedBack:\ndashWoorkZ Sovereign Society would welcome any comments or suggestions.\n Email: dashwoorkz@dashwoorkz.ca")
 feedback_frame_label.grid(row=0, column=1, padx=10, ipadx=10, ipady=5, sticky="w")
- 
+
 hero_frame.lower()
 jeia_logo_label.lift()
 dss_logo_label.lift()
@@ -336,14 +301,6 @@ weather_logo_label.lift()
 # ================================================================================================================================================================
 # ================================================================ End Main Frame Layout =========================================================================
 # ================================================================================================================================================================
-
-def store_selected(choice):
-        choice = convScale.get()
-        convScale.set(choice)
-        live_city_temp_entry.delete(0, tk.END)
-        clearLiveTable()
-        breakpoint
-        
 
 # ================================================================================================================================================================
 # =====================================================Start  Live Temperature Conversion Frame Layout ===========================================================
@@ -385,94 +342,170 @@ live_report_frame.rowconfigure(1, weight=1)
 live_report_frame.columnconfigure(1, weight=1)
 live_report_frame.rowconfigure(1, weight=1)
 
-    # Attempt at creating a function that gets the city and city temperature 
-    # and then displays the city and city temperature and the temperature is used to activate the conversion table
-    #Live Weather Report Frame
-    # This Weather App is brought to you in part by "Alina Chudnova" from her Youtube Video "Create A Weather App using Python | tutorial for Beginners"
-    # https://www.youtube.com/watch?v=VaqYFs7Az50
-    
+def tempError675():
+        error_screen_window = Toplevel(window)
+        error_screen_window.title("!!!Error 675 !!!")
+        width = 350
+        height = 300
+        x = (error_screen_window.winfo_screenwidth()//2)-(width//2)
+        y = (error_screen_window.winfo_screenheight()//2)-(height//2)
+        error_screen_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        error_screen_window.configure(bg="#f0f0f0")
+        error_label = tk.Label(master = error_screen_window)
+        error_label.configure(bg="#ca8888", fg="#9932cc", font=("Roboto, sans-serif", 14, "bold"), wraplength=290,  text="!!!Error 675 !!!\n!!! Temperature Not Entered !!!\n Enter A Temperature to Convert!!")
+        error_label.pack(fill="both", expand=True, side="top", ipady=5, ipadx=5)
+
+
+def scaleError629():
+        error_screen_window = Toplevel(window)
+        error_screen_window.title("!!! Error !!!")
+        width = 300
+        height = 300
+        x = (error_screen_window.winfo_screenwidth()//2)-(width//2)
+        y = (error_screen_window.winfo_screenheight()//2)-(height//2)
+        error_screen_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        error_screen_window.configure(bg="#f0f0f0")
+        error_label = tk.Label(master = error_screen_window)
+        error_label.configure(bg="#ca8888", fg="#9932cc", font=("Roboto, sans-serif", 14, "bold"), wraplength=290,  text="!!! Error !!!\n!!! Scale Not Entered !!!\nPlease Choose A Scale To Convert!!")
+        error_label.pack(fill="both", expand=True, side="top", ipady=5, ipadx=5)
+
+
+
+def cityError642():
+        error_screen_window = Toplevel(window)
+        error_screen_window.title("!!! Error 642 !!!")
+        error_screen_window.configure(bg="#f0f0f0")
+        width = 375
+        height = 200
+        x = (error_screen_window.winfo_screenwidth()//2)-(width//2)
+        y = (error_screen_window.winfo_screenheight()//2)-(height//2)
+        error_screen_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        error_label = tk.Label(master = error_screen_window)
+        error_label.configure(bg="#ca8888", fg="#9932cc", font=("Roboto, sans-serif", 14, "bold"), wraplength=290,  text="!!! Error 642 !!!\n!!! City Not Entered !!!\nPlease Choose A City To Get The Current Weather Information!!")
+        error_label.pack(fill="both", expand=True, side="top", ipady=5, ipadx=5)
+
+
+def completeError700():
+        error_screen_window = Toplevel(window)
+        error_screen_window.title("!!! Error 642 !!!")
+        error_screen_window.configure(bg="#f0f0f0")
+        width = 375
+        height = 200
+        x = (error_screen_window.winfo_screenwidth()//2)-(width//2)
+        y = (error_screen_window.winfo_screenheight()//2)-(height//2)
+        error_screen_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        error_label = tk.Label(master = error_screen_window)
+        error_label.configure(bg="#ca8888", fg="#9932cc", font=("Roboto, sans-serif", 14, "bold"), wraplength=290,  text="!!! Error 642 !!!\n!!! City Not Entered !!!\nPlease Choose A Scale and enter a temperature To Convert!!")
+        error_label.pack(fill="both", expand=True, side="top", ipady=5, ipadx=5)
+
+
+# Attempt at creating a function that gets the city and city temperature 
+# and then displays the city and city temperature and the temperature is used to activate the conversion table
+#Live Weather Report Frame
+# This Weather App is brought to you in part by "Alina Chudnova" from her Youtube Video "Create A Weather App using Python | tutorial for Beginners"
+# https://www.youtube.com/watch?v=VaqYFs7Az50
+
 APIKEY = StringVar()
 APIKEY = ""
 
+def checkLiveSelected():
+        scale = tk.StringVar()
+        scale = convScale.get()
+        city = tk.StringVar()
+        city = live_city_temp_entry.get()
+        if scale == "Choose A Scale":
+                scaleError629()    
+        elif city == "":
+                cityError642()
+        else:
+                searchTemp()
+                breakpoint
+
+
 # =========================
 def get_temperature(city):
-    API_key = APIKEY
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}"
-    res = requests.get(url)
+        API_key = APIKEY
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}"
+        res = requests.get(url)
 
-    if res.status_code == 404:
-        messagebox.showerror("Error", "City Not Found")
-        return None
-    # Parse the response JSON to get weather information
-    weather = res.json()
-    icon_id = weather['weather'][0]['icon']
-    temperature = weather['main']['temp']
-    description = weather['weather'][0]['description']
-    city = weather['name']
-    country = weather['sys']['country']
-    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@2x.png"
-    return (icon_url, temperature, description, city, country)
+        if res.status_code == 404:
+                messagebox.showerror("Error", "City Not Found")
+                return None
+        # Parse the response JSON to get weather information
+        weather = res.json()
+        icon_id = weather['weather'][0]['icon']
+        temperature = weather['main']['temp']
+        description = weather['weather'][0]['description']
+        city = weather['name']
+        country = weather['sys']['country']
+        icon_url = f"http://openweathermap.org/img/wn/{icon_id}@2x.png"
+        return (icon_url, temperature, description, city, country)
 
 
-    # Search weather for a city
+# Search weather for a city
 def searchTemp():
-    city = live_city_temp_entry.get()
-    result = get_temperature(city)
-    if result is None:
-        return
-    # if the city is found, unpack the weather information
-    icon_url, temperature, description, city, country = result
-    icon = ImageTk.PhotoImage(Image.open(requests.get(icon_url, stream=True).raw))
-    live_icon_label.configure(style="livedescLabelLight.TLabel", anchor="center", image=icon)
-    live_icon_label.pack(fill="both", expand=True, side="top")
-    live_icon_label.image = icon
-    # Get the weather icon
-    live_city_label.configure(style="livedescLabelLight1.TLabel", text=f"{city}, {country}", anchor="center", justify="center", wraplength=100)
-    live_desc_frame_label.configure(style="livedescLabelLight1.TLabel", text= f"{description}", anchor="center", justify="center")
-    window.geometry("432x365")
-    live_report_frame.grid(row=0, column=0, columnspan=4, rowspan=2, sticky="nsew")
-    ScaleConverted = convScale.get()
-    temp = IntVar()
-    temp = round((temperature), 1)
-    
-    if ScaleConverted == "Kelvin":
-            convTemp = round(temp * 1, 1)
-            live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}K", anchor="center")
-            converted_temps_one_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
-            converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 273.15) * 1.8) + 32, 2), width=7, anchor='center', justify="center")
-            converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 273.15, 1), width=7, anchor='center', justify="center")
-            converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 491.67, 1), width=7, anchor='center', justify="center")
-            return
-            
-            
-    elif ScaleConverted == "Fahrenheit":
-            convTemp = round(((temp - 273.15) * 1.8) + 32, 1)
-            live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}F", anchor="center")
-            converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 32) / 1.79999999) + 273.15, 2), width=7, anchor='center', justify="center")
-            converted_temps_two_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
-            converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 32) * (5/9), 2),  width=7, anchor='center', justify="center")
-            converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 459.67, 2) ,width=7, anchor='center', justify="center")
-            return
+        city = live_city_temp_entry.get()
+        result = get_temperature(city)
+        if result is None:
+                return
+        # if the city is found, unpack the weather information
+        icon_url, temperature, description, city, country = result
+        icon = ImageTk.PhotoImage(Image.open(requests.get(icon_url, stream=True).raw))
+        live_icon_label.configure(style="livedescLabelLight.TLabel", anchor="center", image=icon)
+        live_icon_label.pack(fill="both", expand=True, side="top")
+        live_icon_label.image = icon
+        # Get the weather icon
+        live_city_label.configure(style="livedescLabelLight1.TLabel", text=f"{city}, {country}", anchor="center", justify="center", wraplength=100)
+        live_desc_frame_label.configure(style="livedescLabelLight1.TLabel", text= f"{description}", anchor="center", justify="center")
+        window.geometry("415x365")
+        live_report_frame.grid(row=0, column=0, columnspan=4, rowspan=2, sticky="nsew")
+        ScaleConverted = convScale.get()
+        temp = IntVar()
+        temp = round((temperature), 1)
 
 
-    elif ScaleConverted == "Rankine":
-            convTemp = round(((temp - 273.15) * 1.8) + 491.67, 1)
-            live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}R", anchor="center")
-            converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp- 491.67) / 1.79999999) + 273.15, 2), width=7, anchor='center', justify="center")
-            converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 459.67, 2), width=7, anchor='center', justify="center")
-            converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 491.67) / 1.79999999, 2), width=7, anchor='center', justify="center")
-            converted_temps_four_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
-            return
+        if ScaleConverted == "Kelvin":
+                convTemp = round(temp * 1, 1)
+                live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}K", anchor="center")
+                converted_temps_one_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 273.15) * 1.8) + 32, 2), width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 273.15, 1), width=7, anchor='center', justify="center")
+                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 491.67, 1), width=7, anchor='center', justify="center")
+                live_city_Search_button.configure(state=enable)
+                return convScale.set(convScaleSet[0]) 
+                
+                
+        elif ScaleConverted == "Fahrenheit":
+                convTemp = round(((temp - 273.15) * 1.8) + 32, 1)
+                live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}F", anchor="center")
+                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 32) / 1.79999999) + 273.15, 2), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 32) * (5/9), 2),  width=7, anchor='center', justify="center")
+                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 459.67, 2) ,width=7, anchor='center', justify="center")
+                live_city_Search_button.configure(state=enable)
+                return convScale.set(convScaleSet[0]) 
 
 
-    elif ScaleConverted == "Celcius":
-            convTemp = round(temp - 273.15, 1)
-            live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}C", anchor="center")
-            converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp  + 273.15, 2), width=7, anchor='center', justify="center")
-            converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp  * (9/5)) + 32, 2), width=7, anchor='center', justify="center")
-            converted_temps_three_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 2) , width=7, anchor='center', justify="center")
-            converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp * 1.8) + 459.67, 2), width=7, anchor='center', justify="center")
-            return
+        elif ScaleConverted == "Rankine":
+                convTemp = round(((temp - 273.15) * 1.8) + 491.67, 1)
+                live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}R", anchor="center")
+                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp- 491.67) / 1.79999999) + 273.15, 2), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 459.67, 2), width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 491.67) / 1.79999999, 2), width=7, anchor='center', justify="center")
+                converted_temps_four_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
+                live_city_Search_button.configure(state=enable)
+                return convScale.set(convScaleSet[0]) 
+
+
+        elif ScaleConverted == "Celcius":
+                convTemp = round(temp - 273.15, 1)
+                live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}C", anchor="center")
+                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp  + 273.15, 2), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp  * (9/5)) + 32, 2), width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 2) , width=7, anchor='center', justify="center")
+                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp * 1.8) + 459.67, 2), width=7, anchor='center', justify="center")
+                live_city_Search_button.configure(state=enable)
+                return convScale.set(convScaleSet[0]) 
 
 
 temp_response_frame = ttk.Frame(master = liveconv_frame)
@@ -505,15 +538,15 @@ convScaleSet = ['Choose A Scale','Celcius','Fahrenheit', 'Kelvin', 'Rankine']
 convScale = StringVar()
 convScale.set(convScaleSet[0])
 convScales = ttk.OptionMenu(
-    cityButton_frame,
-    convScale,
-    *convScaleSet,
-    command=store_selected
-    )
+cityButton_frame,
+convScale,
+*convScaleSet,
+command=store_selected
+)
 convScales.configure(style="convScalesChoiceLight.TLabel", width=20)
 convScales.pack(fill="both", expand=True, side="left", ipady=5, anchor="center", before=live_city_temp_entry)
 live_city_Search_button = ttk.Button(master = cityButton_frame)
-live_city_Search_button.configure(style="scaleSetButtonLight.TButton", takefocus=True, command=searchTemp, text="Get Temp")
+live_city_Search_button.configure(style="scaleSetButtonLight.TButton", takefocus=True, command=checkLiveSelected, text="Get Temp")
 live_city_Search_button.pack(fill="y", expand=False, side="right", anchor="ne")
 #Converted temp Frame
 converted_temps_frame = ttk.Frame(master = temp_frame)
@@ -587,58 +620,82 @@ city_label.pack(fill="both", expand=True, side="top", anchor="center", ipadx=5)
 temperature_label = ttk.Label(master = weather_frame)
 temperature_label.pack(fill="both", expand=True, side="bottom", ipadx=5)
 manual_frame.pack(fill="both", expand=True, side="top", anchor="center")
- 
+
 description_frame.lower()
 weather_icon_label.lift()
 
 # This Weather App is brought to you in part by "Alina Chudnova" from her Youtube Video "Create A Weather App using Python | tutorial for Beginners"
 # https://www.youtube.com/watch?v=VaqYFs7Az50
 # Weather Report Frame
-def get_weather(city):
-    API_key = APIKEY
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}"
-    res = requests.get(url)
+def checkManualSelected():
+        scale = tk.StringVar()
+        scale = scale.get()
+        temp = tk.StringVar()
+        temp = scaleTemp.get()
+        if scale == "Choose A Scale" and temp != "":
+                scaleError629()    
+        elif temp == "" and scale != "Choose A Scale":
+                tempError675()
+        elif temp == "" and scale == "Choose A Scale":
+                completeError700()
+        else:
+                setScaleTemp()
+                breakpoint
 
-    if res.status_code == 404:
-        messagebox.showerror("Error", "City Not Found")
-        return None
-    # Parse the response JSON to get weather information
-    weather = res.json()
-    icon_id = weather['weather'][0]['icon']
-    temperature = weather['main']['temp'] - 273.15
-    description = weather['weather'][0]['description']
-    city = weather['name']
-    country = weather['sys']['country']
-    #Get the icon URL and return all the weather information
-    icon_url = f"http://openweathermap.org/img/wn/{icon_id}@2x.png"
-    return (icon_url, temperature, description, city, country)
+def checkCity():
+        city = tk.StringVar()
+        city = city_search_entry.get()
+        if city == "":
+                cityError642()
+        else:
+                search()
+                breakpoint
+
+def get_weather(city):
+        API_key = APIKEY
+        url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_key}"
+        res = requests.get(url)
+
+        if res.status_code == 404:
+                messagebox.showerror("Error", "City Not Found")
+                return None
+        # Parse the response JSON to get weather information
+        weather = res.json()
+        icon_id = weather['weather'][0]['icon']
+        temperature = weather['main']['temp'] - 273.15
+        description = weather['weather'][0]['description']
+        city = weather['name']
+        country = weather['sys']['country']
+        #Get the icon URL and return all the weather information
+        icon_url = f"http://openweathermap.org/img/wn/{icon_id}@2x.png"
+        return (icon_url, temperature, description, city, country)
 
 
 # Search weather for a city
 def search():
-    city = city_search_entry.get()
-    result = get_weather(city)
-    if result is None:
-        return
-    # if the city is found, unpack the weather information
-    icon_url, temperature, description, city, country = result
-    # Get the weather icon
-    icon = ImageTk.PhotoImage(Image.open(requests.get(icon_url, stream=True).raw))   
-    weather_icon_label.configure(style="livedescLabelDark.TLabel", anchor="center", image=icon)
-    weather_icon_label.pack(fill="x", expand=False, side="top", anchor="center")
-    weather_icon_label.image = icon
-    city_label.configure(style="livedescLabelDark1.TLabel", text=f"{city}, {country}", anchor="center")
-    description_frame_label.configure(style="livedescLabelDark1.TLabel", text= f"{description}", anchor="center")
-    temperature_label.configure(style="livedescLabelDark.TLabel", font=("Times New Romant", 30, "bold"), text= f"{round(int(temperature))}C", anchor="center")
-    window.geometry("283x430")
-    weather_report_frame.grid(row=0, column=0, columnspan=4,sticky="nsew")
+        city = city_search_entry.get()
+        result = get_weather(city)
+        if result is None:
+                return
+        # if the city is found, unpack the weather information
+        icon_url, temperature, description, city, country = result
+        # Get the weather icon
+        icon = ImageTk.PhotoImage(Image.open(requests.get(icon_url, stream=True).raw))   
+        weather_icon_label.configure(style="livedescLabelDark.TLabel", anchor="center", image=icon)
+        weather_icon_label.pack(fill="x", expand=False, side="top", anchor="center")
+        weather_icon_label.image = icon
+        city_label.configure(style="livedescLabelDark1.TLabel", text=f"{city}, {country}", anchor="center")
+        description_frame_label.configure(style="livedescLabelDark1.TLabel", text= f"{description}", anchor="center")
+        temperature_label.configure(style="livedescLabelDark.TLabel", font=("Times New Romant", 30, "bold"), text= f"{round(int(temperature))}C", anchor="center")
+        window.geometry("283x430")
+        weather_report_frame.grid(row=0, column=0, columnspan=4,sticky="nsew")
 
 # Scale Temperature Setting
 
 # Function retrieves the Scale Chosen and the Temperature to convert, then displays the Conversion Table
 def setScaleTemp():
         if temp_var == True:
-                choice = scale.set[1]
+                choice = scale.set[0]
                 temp = main.temp.get()           
                 converted_scale_one_labelframe_label.configure(style="convertedScaleLableFrameLableDark.TLabel", text=int(temp)  + 273.15, width=7, anchor='center', justify="center")
                 converted_scale_two_labelframe_label.configure(style="convertedScaleLableFrameLableDark.TLabel", text= (int(temp)  * (9/5) + 32), width=7, anchor='center', justify="center")
@@ -700,7 +757,7 @@ city_search_entry = ttk.Entry(master = manual_search_frame)
 city_search_entry.configure(style="setTempDark.TEntry", justify="center") 
 city_search_entry.pack(fill="both", expand=True, side="left", anchor="nw")
 citySearch_button = ttk.Button(master = manual_search_frame)
-citySearch_button.configure(style="scaleSetButtonDark.TButton", takefocus=True, command=search, text="Search")
+citySearch_button.configure(style="scaleSetButtonDark.TButton", takefocus=True, command=lambda: checkCity(), text="Search")
 citySearch_button.pack(fill="y", expand=True, side="right", anchor="ne")
 # =========  Scale Choice Frame Start =======================
 scaleChoice_title = ttk.Frame(master = temperature_frame)
@@ -717,7 +774,7 @@ temperature_setting_frame = ttk.Frame(master = scaleChoice)
 temperature_setting_frame.configure(style="convertedFrameDark.TFrame")
 temperature_setting_frame.pack(side="top", fill="both", expand=True)
 scaleSet_button = ttk.Button(master = temperature_setting_frame)
-scaleSet_button.configure(style="scaleSetButtonDark.TButton", takefocus=True, command=setScaleTemp, text="Convert")
+scaleSet_button.configure(style="scaleSetButtonDark.TButton", takefocus=True, command=checkManualSelected, text="Convert")
 scaleSet_button.pack(fill="x", expand=False, padx=(3, 0), side="right")
 # Scale Temperature Setting ===================================
 scaleTemp = ttk.Entry(master = temperature_setting_frame)
@@ -729,10 +786,10 @@ scaleSet = ['Choose A Scale','Celcius','Fahrenheit', 'Kelvin', 'Rankine']
 scale = StringVar()
 scale.set(scaleSet[0])
 scales = ttk.OptionMenu(
-    temperature_setting_frame,
-    scale,
-    *scaleSet,
-    command=display_selected)
+temperature_setting_frame,
+scale,
+*scaleSet,
+command=display_selected)
 scales.configure(style="ScalesChoiceDark.TLabel", width=7)
 scales.pack(fill="both", expand=True, side="left", ipady=5, ipadx=5, anchor="center")
 # ====== Scales Conversion Frame 
@@ -743,9 +800,9 @@ setTemp = StringVar()
 temp = 0
 
 def setTemp(temp):
-    temp = round(setTemp)
- 
-            
+        temp = round(setTemp)
+
+        
 #Converted Scales Frame
 converted_scales_frame = ttk.Frame(master = scales_response_frame)
 converted_scales_frame.configure(style="scalesResponseFrameDark.TFrame")
@@ -799,109 +856,110 @@ scales_response_frame.columnconfigure(2, weight = 1)
 # =================================================== End of Manual Conversion Layout ============================================================================
 # ================================================================================================================================================================
 
-# Lawful Privacy Statement
-lawful_privacy_frame = ttk.Frame(master=temcon_program_frame)
-lawful_privacy_frame.configure(style="lawfulLight.TFrame")
-lawful_privacy_frame.grid(row=0, column=0, columnspan=4, sticky="nsew")
-logo_frame = ttk.Frame(master=lawful_privacy_frame)
-logo_frame.configure(style="lawfulLight.TFrame")
-logo_frame.pack(fill="both", expand=True, side="top")
-
-# ============= Logo to be put in a Canvas ======================#
-# ---------------------------------------------------------------#
-# tcttk Logo Image used in Frame
-tcttk_logo = ImageTk.PhotoImage(Image.open("imgs/dss_logo.png"))
-tcttk_logo_label = ttk.Label(master = logo_frame,image=tcttk_logo)
-tcttk_logo_label.configure(style="tcttkLight.TLabel", anchor="center", justify="center")
-tcttk_logo_label.pack(fill="both", expand=True, side="top",)
-# ---------------------------------------------------------------#
-# ============= Logo to be put in a Canvas ======================#
+        # Donation Window
+def open_privacy_window():
+        lawful_privacy_window = Toplevel(window)
+        lawful_privacy_window.title("lawful_privacy")
+        width = 300
+        height = 540
+        x = (lawful_privacy_window.winfo_screenwidth()//2)-(width//2)
+        y = (lawful_privacy_window.winfo_screenheight()//2)-(height//2)
+        lawful_privacy_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        lawful_privacy_window.configure(bg="#f0f0f0")
+        # Lawful Privacy Statement
+        lawful_privacy_frame = ttk.Frame(master=lawful_privacy_window)
+        lawful_privacy_frame.configure(style="lawfulLight.TFrame")
 
 
-privacy_frame = ttk.Frame(master=lawful_privacy_frame)
-privacy_frame.configure(style="privacyLight.TFrame")
-privacy_frame.pack(fill="both", expand=True)
-privacy_frame_label = ttk.Label(master=privacy_frame)
-privacy_frame_label.configure(style="privacyLight.TLabel", font=("Times New Roman", 10, "bold"), anchor="center", justify="center", wraplength=290, text="dashWoorkz Sovereign Society\n is a Private Society, we will not invade Your Privacy, or provide anyone any information we may have about you, any information we have about you will have been acquired with Your Consent, if we were to do anything with the information we have about you, it would be with Your Consent")
-privacy_frame_label.pack(fill="x", expand="True", side="top", ipady=5, ipadx=5)
-lawful_frame = ttk.Frame(master=lawful_privacy_frame)
-lawful_frame.configure(style="lawfulLight.TFrame")
-lawful_frame.pack(fill="both", expand=True)
-lawful_frame_label = ttk.Label(master=lawful_frame)
-lawful_frame_label.configure(style="lawfulLight.TLabel", font=("Times New Roman", 10, "bold"), justify="center", anchor="center", wraplength=300, text="dashWoorkz Sovereign Society\nEstablished: 2023\nTemCon TTK Version One(1)\nTemperature Conversion Tool\nConverts:\n Celcius, Kelvin, Fahrenheit and Rankine")
-lawful_frame_label.pack(fill="x", expand="True", side="top", ipady=5, ipadx=5)
-
-lawful_privacy_frame.rowconfigure(0, weight = 1)
-lawful_privacy_frame.columnconfigure(0, weight = 1)
-lawful_privacy_frame.rowconfigure(1, weight = 1)
-lawful_privacy_frame.columnconfigure(1, weight = 1)
-lawful_privacy_frame.rowconfigure(2, weight = 1)
-lawful_privacy_frame.columnconfigure(2, weight = 1)
-lawful_privacy_frame.rowconfigure(3, weight = 1)
-lawful_privacy_frame.columnconfigure(3, weight = 1)
-logo_frame.lower()
-tcttk_logo_label.lift()
+       # ---------------------------------------------------------------#
+        # ============= Logo to be put in a Canvas ======================
+        privacy_frame = ttk.Frame(master=lawful_privacy_frame)
+        privacy_frame.configure(style="privacyLight.TFrame")
+        privacy_frame_label = ttk.Label(master=privacy_frame)
+        privacy_frame_label.configure(style="privacyLight.TLabel", font=("Times New Roman", 10, "bold"), anchor="center", justify="center", wraplength=290, text="dashWoorkz Sovereign Society\n is a Private Society, we will not invade Your Privacy, or provide anyone any information we may have about you, any information we have about you will have been acquired with Your Consent, if we were to do anything with the information we have about you, it would be with Your Consent")
+        privacy_frame_label.pack(fill="x", expand="True", side="top")
+        privacy_frame.pack(fill="both", expand=True)
+        lawful_frame = ttk.Frame(master=lawful_privacy_frame)
+        lawful_frame.configure(style="lawfulLight.TFrame")
+        lawful_frame_label = ttk.Label(master=lawful_frame)
+        lawful_frame_label.configure(style="lawfulLight.TLabel", font=("Times New Roman", 10, "bold"), justify="center", anchor="center", wraplength=290, text="dashWoorkz Sovereign Society\nEstablished: 2023\nTemCon TTK Version One(1)\nTemperature Conversion Tool\nConverts:\n Celcius, Kelvin, Fahrenheit and Rankine")
+        lawful_frame_label.pack(fill="x", expand="True", side="top", ipady=5, ipadx=5)
+        lawful_frame.pack(fill="both", expand=True)
+        gpl_frame = ttk.Frame(master=lawful_privacy_frame)
+        gpl_frame.configure(style="lawfulLight.TFrame")
+        lawful_gpl_label = ttk.Label(master = gpl_frame)
+        lawful_gpl_label.configure(justify="center", anchor="center", font=("Roboto, sans-serif", 8, "bold"), wraplength=290, background="#f7d4f6", foreground="#9370d8", text="    TemCon 2.1, Live Weather Reporting Temperature Conversion Tool\nCopyright (C) 2024\n  dashWoorkZ Sovereign Society\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\n You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.")
+        lawful_gpl_label.grid(row=2, column=0, columnspan=4, sticky="nsew", ipady=5, ipadx=5)
+        gpl_frame.pack(fill="both", expand="True", side="bottom", ipady=5, ipadx=5)
+        lawful_privacy_frame.grid(row=0, column=0, columnspan=4, rowspan=3)
+        
+        lawful_privacy_frame.rowconfigure(0, weight = 1)
+        lawful_privacy_frame.columnconfigure(0, weight = 1)
+        lawful_privacy_frame.rowconfigure(1, weight = 1)
+        lawful_privacy_frame.columnconfigure(1, weight = 1)
+        lawful_privacy_frame.rowconfigure(2, weight = 1)
+        lawful_privacy_frame.columnconfigure(2, weight = 1)
+        lawful_privacy_frame.columnconfigure(3, weight = 1)
 
 # End of Lawful Privacy Statement
 # ===================
 
 # Donation Window
 def open_donate_window():
-    donate_window = Toplevel(window)
-    donate_window.title("Donate")
-    donate_window.geometry("310x200")
-    donate_window.configure(bg="#f0f0f0")
-    donate_label = Label(donate_window)
-    donate_label.configure(font=("Times New Roman", 11, "bold"),highlightbackground='#ffa500', pady=10, highlightcolor='#deb887', highlightthickness=3, takefocus=True,  background="#ffe4c4", foreground="#5c3608", text="Donate:\nIf you enjoyed this program and would\n like to contribute to our work,\n you can donate by emailing:\ndashWoorkz Sovereign Society:\nEmail: dashwoorkz@dashwoorkz.ca\nor through E-Transfer to:\nLord :Dash: La Londe\nManaging Director\ndash@dashwoorkz.ca")
-    donate_label.pack(fill="both", expand=True)
+        donate_window = Toplevel(window)
+        donate_window.title("Donate")
+        donate_window.geometry("310x200")
+        donate_window.configure(bg="#f0f0f0")
+        donate_label = Label(donate_window)
+        donate_label.configure(font=("Times New Roman", 11, "bold"),highlightbackground='#ffa500', pady=10, highlightcolor='#deb887', highlightthickness=3, takefocus=True,  background="#ffe4c4", foreground="#5c3608", text="Donate:\nIf you enjoyed this program and would\n like to contribute to our work,\n you can donate by emailing:\ndashWoorkz Sovereign Society:\nEmail: dashwoorkz@dashwoorkz.ca\nor through E-Transfer to:\nLord :Dash: La Londe\nManaging Director\ndash@dashwoorkz.ca")
+        donate_label.pack(fill="both", expand=True)
 
 # End of Donation Window
 # ===================
 
 # Contact Information Window
 def open_contact_window():
-    contact_window = Toplevel(window)
-    contact_window.title("Contact Us")
-    contact_window.geometry("310x200")
-    contact_window.configure(bg="#f0f0f0")
-    
-    label_contact = Label(contact_window, text="Contact Information", foreground="#fd3adf", bg="#f7d4f6", font=("Helvetica", 12, "bold"))
-    label_contact.pack(fill="both", expand=True)
+        contact_window = Toplevel(window)
+        contact_window.title("Contact Us")
+        contact_window.geometry("310x200")
+        contact_window.configure(bg="#f0f0f0")
+        
+        label_contact = Label(contact_window, text="Contact Information", foreground="#fd3adf", bg="#f7d4f6", font=("Helvetica", 12, "bold"))
+        label_contact.pack(fill="both", expand=True)
 
-    label_society = Label(contact_window, text="dashWoorkZ Sovereign Society", foreground="#4169e1", bg="#99cfe7", font=("Helvetica", 10, "bold"))
-    label_society.pack(fill="both", expand=True)
-    
-    label_email = Label(contact_window, text="Email: dashwoorkz@dashwoorkz.ca", foreground="#4169e1", bg="#99cfe7", font=("Helvetica", 10))
-    label_email.pack(fill="both", expand=True)
-    
-    label_mdirector = Label(contact_window, text="Managing Director:", foreground="#2e8b57", bg="#c4ecc4", font=("Helvetica", 10, "bold"))
-    label_mdirector.pack(fill="both", expand=True)
-    
-    label_mdName = Label(contact_window, text="Lord :Dash: La Londe", foreground="#2e8b57", bg="#c4ecc4", font=("Helvetica", 10))
-    label_mdName.pack(fill="both", expand=True)
+        label_society = Label(contact_window, text="dashWoorkZ Sovereign Society", foreground="#4169e1", bg="#99cfe7", font=("Helvetica", 10, "bold"))
+        label_society.pack(fill="both", expand=True)
+        
+        label_email = Label(contact_window, text="Email: dashwoorkz@dashwoorkz.ca", foreground="#4169e1", bg="#99cfe7", font=("Helvetica", 10))
+        label_email.pack(fill="both", expand=True)
+        
+        label_mdirector = Label(contact_window, text="Managing Director:", foreground="#2e8b57", bg="#c4ecc4", font=("Helvetica", 10, "bold"))
+        label_mdirector.pack(fill="both", expand=True)
+        
+        label_mdName = Label(contact_window, text="Lord :Dash: La Londe", foreground="#2e8b57", bg="#c4ecc4", font=("Helvetica", 10))
+        label_mdName.pack(fill="both", expand=True)
 
-    label_md_email = Label(contact_window, text="Email: dash@dashwoorkz.ca", foreground="#2e8b57", bg="#c4ecc4", font=("Helvetica", 10, "bold"))
-    label_md_email.pack(fill="both", expand=True)
+        label_md_email = Label(contact_window, text="Email: dash@dashwoorkz.ca", foreground="#2e8b57", bg="#c4ecc4", font=("Helvetica", 10, "bold"))
+        label_md_email.pack(fill="both", expand=True)
 
-    label_csDirector = Label(contact_window, text="Community Services Director:", foreground="#c27012", bg="#f3e1c9", font=("Helvetica", 10, "bold"))
-    label_csDirector.pack(fill="both", expand=True)
-    
-    label_csdName = Label(contact_window, text="Lady :Jeanette-Elizabeth: Hiuser", foreground="#c27012", bg="#f3e1c9", font=("Helvetica", 10))
-    label_csdName.pack(fill="both", expand=True)
+        label_csDirector = Label(contact_window, text="Community Services Director:", foreground="#c27012", bg="#f3e1c9", font=("Helvetica", 10, "bold"))
+        label_csDirector.pack(fill="both", expand=True)
+        
+        label_csdName = Label(contact_window, text="Lady :Jeanette-Elizabeth: Hiuser", foreground="#c27012", bg="#f3e1c9", font=("Helvetica", 10))
+        label_csdName.pack(fill="both", expand=True)
 
-    label_cs_email = Label(contact_window, text="Email: jeanette.elizabeth@dashwoorkz.ca", foreground="#c27012", bg="#f3e1c9", font=("Helvetica", 10))
-    label_cs_email.pack(fill="both", expand=True)
+        label_cs_email = Label(contact_window, text="Email: jeanette.elizabeth@dashwoorkz.ca", foreground="#c27012", bg="#f3e1c9", font=("Helvetica", 10))
+        label_cs_email.pack(fill="both", expand=True)
 
-# End of Contact Information Window
-# ===================
 
-hideLawful()
+
+
 getMain()
 
 
 window.configure(menu = menu)
 
-
-
-
 window.mainloop()
+
+
+
