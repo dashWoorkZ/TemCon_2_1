@@ -128,7 +128,7 @@ def store_selected(choice):
         
 
 def getMain():
-        window.geometry("313x359")
+        window.geometry("313x347")
         clearLiveTable()
         liveconv_frame.grid_forget()
         manconv_frame.grid_forget()
@@ -183,14 +183,14 @@ def clearManualTable():
         converted_scale_two_labelframe_label.configure(text="", style="convertedScaleLableFrameLableDark.TLabel")
         converted_scale_three_labelframe_label.configure(text="", style="convertedScaleLableFrameLableDark.TLabel")
         converted_scale_four_labelframe_label.configure(text="", style="convertedScaleLableFrameLableDark.TLabel")
-        city_search_entry.delete(0, END)
+        city_search_entry.insert(0, "Enter City Here")
         breakpoint
 
 
 
 def clearLiveWeather():
         convScale.set(convScaleSet[0])
-        live_city_temp_entry.delete(0, END)
+        live_city_temp_entry.insert(0, "Enter City Here")
         live_icon_label.pack_forget()
         live_city_label.configure(style="livedesclLabelLight.TLabel", text="", anchor="center", wraplength=100)
         live_desc_frame_label.configure(style="livedesclLabelLight.TLabel", text= "", anchor="center")
@@ -213,7 +213,7 @@ def clearManualWeather():
 # ======================================================================================================================================
 
 temcon_program_frame = tk.Frame(master=window)
-temcon_program_frame.pack(fill="both", expand=False, side="top", anchor="center")
+temcon_program_frame.pack(fill="both", expand=False, side="top", anchor="center", ipadx=5)
 tup_frame = tk.Frame(master=temcon_program_frame)
 tup_frame.configure()
 tup_frame.grid(row=0, column=0, columnspan=4)
@@ -222,37 +222,30 @@ tup_label_title.configure(text="TEMPERATURE CONVERSION TOOL", style="temconConTo
 tup_label_title.grid(row=0, column=0, columnspan=4, ipadx=5, ipady=5, sticky="ew")
 temcon_frame = tk.Frame(master=tup_frame)
 temcon_frame.configure(bg="#4f788a")
-temcon_labelframe = ttk.LabelFrame(master = temcon_frame, text="TEMCON", height=50, width=150)
+temcon_labelframe = ttk.LabelFrame(master = temcon_frame, text="TEMCON", height=100, width=150)
 temcon_labelframe.configure(style="tested.TLabel")
 temcon_labelframe.grid(row=0, column=0, columnspan=2, sticky=tk.N, pady=5, padx=5)
 
-
-
-# ============= Logo to be put in a Canvas ======================#
-# ---------------------------------------------------------------#
-# Temcon Logo Image used in Advertising Frame
-temcon_logo = ImageTk.PhotoImage(Image.open("imgs/tc2024Logo_100.png"))
-temcon_logo_label = ttk.Label(master = temcon_labelframe,image=temcon_logo)
-temcon_logo_label.configure(style="temconLight.TLabel", justify="center", anchor="center")
-temcon_logo_label.grid(row=0, column=0, columnspan=2, ipadx=5, ipady=10)
-# ---------------------------------------------------------------#
-# ============= Logo to be put in a Canvas ======================#
+# ============= Logo in a Canvas ======================#
+temcon_logo = Image.open("imgs/tc2024Logo.png")
+image_ratio = temcon_logo.size[0] / temcon_logo.size[1]
+temcontk = ImageTk.PhotoImage(temcon_logo)
+canvas4 = tk.Canvas(temcon_labelframe, background="#219399", width=120, height=100, bd=2, highlightthickness=2, relief="ridge")
+canvas4.grid(row=0, column=0)
+canvas4.create_image(60,50, image = temcontk)
 
 # Openweather
-weather_labelframe = ttk.LabelFrame(master =temcon_frame, text="OPENWEATHER", height=50, width=150)
+weather_labelframe = ttk.LabelFrame(master =temcon_frame, text="OPENWEATHER", height=90, width=150)
 weather_labelframe.configure(style="tested.TLabel")
-weather_labelframe.grid(row=0, column=2, columnspan=2, sticky=tk.N, pady=5, padx=15)
+weather_labelframe.grid(row=0, column=2, columnspan=2, sticky=tk.N, pady=5, padx=5)
 
-# ============= Logo to be put in a Canvas ======================#
-# ---------------------------------------------------------------#
-# Weather Logo Image used in Advertising Frame
-weather_logo = ImageTk.PhotoImage(Image.open("imgs/OWM_logo_135.png"))
-weather_logo_label = ttk.Label(master = weather_labelframe, image=weather_logo)
-weather_logo_label.configure(style="temconLight.TLabel", justify="center", anchor="center")
-weather_logo_label.grid(row=0, column=2, columnspan=2, ipadx=10, ipady=10)
-# ---------------------------------------------------------------#
-# ============= Logo to be put in a Canvas ======================#
-temcon_frame.grid(row=1, column=0, columnspan=4, rowspan=2, sticky="nsew")
+# ============= Logo in a Canvas ======================#
+weather_logo = Image.open("imgs/OWM_logo_135.png")
+image_ratio = weather_logo.size[0] / weather_logo.size[1] * .75
+weather_logotk = ImageTk.PhotoImage(weather_logo)
+canvas3 = tk.Canvas(weather_labelframe, background="#219399", width=150, height=100, bd=2, highlightthickness=2, relief="ridge")
+canvas3.grid(row=0, column=0)
+canvas3.create_image(80,50, image = weather_logotk)
 
 # Sponsored Advertising Frame
 hero_frame = tk.Frame(temcon_frame)
@@ -261,43 +254,33 @@ hero_frame.grid(row=1, column=0, columnspan=4, rowspan=2, sticky="nsew")
 # Sponsored Advertiseing Label
 hero_frame_label = ttk.Label(hero_frame)
 hero_frame_label.configure(style="heroFrameLabelLight.TLabel", font=("Roboto, sans-serif", 7, "bold"), text="Jeanette's Impressions Art\njeanette.elizabeth@dashwoorkz.ca\nCommunity Services Director", justify="center", anchor="center")
-hero_frame_label.grid(row=0, column=0, ipady=5, padx=3, ipadx=10, sticky="w")
+hero_frame_label.grid(row=0, column=0, columnspan=3, ipady=8, padx=8, ipadx=8, sticky="w")
 
-# ============= Logo to be put in a Canvas ======================#
-# ---------------------------------------------------------------#
-# jeia Logo Image used in Advertising Frame
-jeia_logo = ImageTk.PhotoImage(Image.open("imgs/jeia_thumb.png"))
-jeia_logo_label = ttk.Label(master = hero_frame,image=jeia_logo)
-jeia_logo_label.configure(background="#ffe4c4")
-jeia_logo_label.grid(row=0, column=1, sticky="e", pady=5)
-# ---------------------------------------------------------------#
-# ============= Logo to be put in a Canvas ======================#
+# ============= Logo in a Canvas ======================#
+jeia_logo = Image.open("imgs/jeia_thumb.png")
+image_ratio = jeia_logo.size[0] / jeia_logo.size[1]
+jeia_logotk = ImageTk.PhotoImage(jeia_logo)
+canvas5 = tk.Canvas(hero_frame, background="#219399",  width=70, height=50, bd=2, highlightthickness=2, relief="ridge")
+canvas5.grid(row=0, column=3, sticky="en", padx=8, pady=5)
+canvas5.create_image(40,30, image = jeia_logotk)
 
 feedback_frame = tk.Frame(master=hero_frame)
 feedback_frame.configure(bg="#4f788a")
 feedback_frame.grid(row=1, column=0, columnspan=4, padx= 2)
 
-# ============= Logo to be put in a Canvas ======================#
-# ---------------------------------------------------------------#
-# dss Logo Image 
-dss_logo = ImageTk.PhotoImage(Image.open("imgs/dss_logo.png"))
-dss_logo_label = ttk.Label(master = feedback_frame,image=dss_logo)
-dss_logo_label.configure(style="heroFrameLabelLight.TLabel", anchor="center")
-dss_logo_label.grid(row=0, column=0, pady=10, padx=10, ipadx=5, ipady=5, sticky="w")
-# ---------------------------------------------------------------#
-# ============= Logo to be put in a Canvas ======================#
+# ============= Logo  in a Canvas ======================#
+dss_logo = Image.open("imgs/dss_logo.png")
+image_ratio = dss_logo.size[0] / dss_logo.size[1]
+dss_logotk = ImageTk.PhotoImage(dss_logo)
+canvas6 = tk.Canvas(feedback_frame, background="#219399",  width=90, height=90, bd=2, highlightthickness=2, relief="ridge")
+canvas6.grid(row=0, column=0, pady=5, padx=5, sticky="w")
+canvas6.create_image(50,50, image = dss_logotk)
 
 feedback_frame_label = ttk.Label(master=feedback_frame)
 feedback_frame_label.configure(style="heroFrameLabelLight.TLabel", font=("Roboto, sans-serif", 7, "bold"), wraplength=155, anchor="center", justify="center", text="FeedBack:\ndashWoorkZ Sovereign Society would welcome any comments or suggestions.\n Email: dashwoorkz@dashwoorkz.ca")
-feedback_frame_label.grid(row=0, column=1, padx=10, ipadx=10, ipady=5, sticky="w")
+feedback_frame_label.grid(row=0, column=1, padx=5, ipadx=10, ipady=5, sticky="w")
+temcon_frame.grid(row=1, column=0, columnspan=4, rowspan=2, sticky="nsew")
 
-hero_frame.lower()
-jeia_logo_label.lift()
-dss_logo_label.lift()
-feedback_frame.lower()
-temcon_logo_label.lift()
-weather_labelframe.lower()
-weather_logo_label.lift()
 # ================================================================================================================================================================
 # ================================================================ End Main Frame Layout =========================================================================
 # ================================================================================================================================================================
@@ -454,6 +437,7 @@ def searchTemp():
         live_icon_label.configure(style="livedescLabelLight.TLabel", anchor="center", image=icon)
         live_icon_label.pack(fill="both", expand=True, side="top")
         live_icon_label.image = icon
+        
         # Get the weather icon
         live_city_label.configure(style="livedescLabelLight1.TLabel", text=f"{city}, {country}", anchor="center", justify="center", wraplength=100)
         live_desc_frame_label.configure(style="livedescLabelLight1.TLabel", text= f"{description}", anchor="center", justify="center")
@@ -471,7 +455,6 @@ def searchTemp():
                 converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 273.15) * 1.8) + 32, 2), width=7, anchor='center', justify="center")
                 converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 273.15, 1), width=7, anchor='center', justify="center")
                 converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 491.67, 1), width=7, anchor='center', justify="center")
-                live_city_Search_button.configure(state=enable)
                 return convScale.set(convScaleSet[0]) 
                 
                 
@@ -482,7 +465,6 @@ def searchTemp():
                 converted_temps_two_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
                 converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 32) * (5/9), 2),  width=7, anchor='center', justify="center")
                 converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 459.67, 2) ,width=7, anchor='center', justify="center")
-                live_city_Search_button.configure(state=enable)
                 return convScale.set(convScaleSet[0]) 
 
 
@@ -493,7 +475,6 @@ def searchTemp():
                 converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 459.67, 2), width=7, anchor='center', justify="center")
                 converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 491.67) / 1.79999999, 2), width=7, anchor='center', justify="center")
                 converted_temps_four_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
-                live_city_Search_button.configure(state=enable)
                 return convScale.set(convScaleSet[0]) 
 
 
@@ -504,8 +485,13 @@ def searchTemp():
                 converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp  * (9/5)) + 32, 2), width=7, anchor='center', justify="center")
                 converted_temps_three_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 2) , width=7, anchor='center', justify="center")
                 converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp * 1.8) + 459.67, 2), width=7, anchor='center', justify="center")
-                live_city_Search_button.configure(state=enable)
                 return convScale.set(convScaleSet[0]) 
+
+
+
+def clearLiveCity():
+        live_city_temp_entry.delete(0, tk.END)
+        breakpoint
 
 
 temp_response_frame = ttk.Frame(master = liveconv_frame)
@@ -521,9 +507,9 @@ city_description_label = ttk.Label(cityButton_frame)
 city_description_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= "Live City Weather Report", anchor='center', justify="center")
 city_description_label.pack(fill="x", expand=False, side="top", ipady=5)
 live_city_temp_entry = ttk.Entry(master = cityButton_frame)
-live_city_temp_entry.configure(style="setTempLight.TEntry", justify="center")
+live_city_temp_entry.configure(style="setTempLight.TEntry", justify="center", text="Enter City Here")
 live_city_temp_entry.pack(fill="both", expand=False, side="left")
-
+live_city_temp_entry.bind("<FocusIn>", live_city_temp_entry.delete(0, tk.END))
 temp_response_frame.columnconfigure(0, weight=1)
 temp_response_frame.rowconfigure(0, weight=1)
 temp_response_frame.columnconfigure(1, weight=1)
@@ -689,6 +675,7 @@ def search():
         temperature_label.configure(style="livedescLabelDark.TLabel", font=("Times New Romant", 30, "bold"), text= f"{round(int(temperature))}C", anchor="center")
         window.geometry("283x430")
         weather_report_frame.grid(row=0, column=0, columnspan=4,sticky="nsew")
+        city_search_entry.delete(0, tk.END)
 
 # Scale Temperature Setting
 
@@ -760,6 +747,8 @@ citySearch_button = ttk.Button(master = manual_search_frame)
 citySearch_button.configure(style="scaleSetButtonDark.TButton", takefocus=True, command=lambda: checkCity(), text="Search")
 citySearch_button.pack(fill="y", expand=True, side="right", anchor="ne")
 # =========  Scale Choice Frame Start =======================
+
+
 scaleChoice_title = ttk.Frame(master = temperature_frame)
 scaleChoice_title.configure(style="convertedFrameDark.TFrame")
 scaleChoice_title.pack(fill="both", expand=True, side="top")
@@ -908,7 +897,11 @@ def open_privacy_window():
 def open_donate_window():
         donate_window = Toplevel(window)
         donate_window.title("Donate")
-        donate_window.geometry("310x200")
+        width = 310
+        height = 200
+        x = (donate_window.winfo_screenwidth()//2)-(width//2)
+        y = (donate_window.winfo_screenheight()//2)-(height//2)
+        donate_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
         donate_window.configure(bg="#f0f0f0")
         donate_label = Label(donate_window)
         donate_label.configure(font=("Times New Roman", 11, "bold"),highlightbackground='#ffa500', pady=10, highlightcolor='#deb887', highlightthickness=3, takefocus=True,  background="#ffe4c4", foreground="#5c3608", text="Donate:\nIf you enjoyed this program and would\n like to contribute to our work,\n you can donate by emailing:\ndashWoorkz Sovereign Society:\nEmail: dashwoorkz@dashwoorkz.ca\nor through E-Transfer to:\nLord :Dash: La Londe\nManaging Director\ndash@dashwoorkz.ca")
@@ -921,7 +914,11 @@ def open_donate_window():
 def open_contact_window():
         contact_window = Toplevel(window)
         contact_window.title("Contact Us")
-        contact_window.geometry("310x200")
+        width = 310
+        height = 200
+        x = (contact_window.winfo_screenwidth()//2)-(width//2)
+        y = (contact_window.winfo_screenheight()//2)-(height//2)
+        contact_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
         contact_window.configure(bg="#f0f0f0")
         
         label_contact = Label(contact_window, text="Contact Information", foreground="#fd3adf", bg="#f7d4f6", font=("Helvetica", 12, "bold"))
@@ -952,12 +949,141 @@ def open_contact_window():
         label_cs_email.pack(fill="both", expand=True)
 
 
+def open_splash_window():
+        window.withdraw()
+        #splash_window = tk.Tk()
+        from PIL import ImageTk, Image
+        splash_window = Toplevel(window)
+        splash_window.title("Splash Screen")
+        width = 340
+        height = 544
+        x = (splash_window.winfo_screenwidth()//2)-(width//2)
+        y = (splash_window.winfo_screenheight()//2)-(height//2)
+        splash_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        splash_window.configure(bg="#f0f0f0")
+        style = ttk.Style()        
+        style.theme_use("clam")
+        style.configure("splash.Toolbutton", font=("Roboto, sans-serif", 12, "bold"), borderwidth=5, bordercolor="#0000ff", relief=tk.RAISED, foreground="#448d76", background="#c4ecc4")
+        style.configure("hover.Toolbutton", font=("Roboto, sans-serif", 12, "bold"), borderwidth=5, bordercolor="#702b85", overrelief=tk.SUNKEN, foreground="#9932cc", background="#07597f")
+        splash_window.configure(background="#219399")
+
+        def startLive(event):
+                window.deiconify()
+                showLive()
+                splash_window.destroy()
 
 
-getMain()
+        def startManual(event):
+                window.deiconify()
+                showManual()
+                splash_window.destroy()
 
+        def startHome(event):
+                window.deiconify()
+                getMain()
+                splash_window.destroy()
+
+
+
+        splash_frame = tk.Frame(splash_window)
+        splash_frame.configure(bg="#219399")
+        temcon_title_frame = tk.Frame(splash_frame)
+        temcon_title_frame.configure(bg="#219399")
+        temcon_icon_frame = tk.Frame(temcon_title_frame)
+        tcttk_logo = Image.open("imgs/tc2024Logo.png")
+        image_ratio = 70 / 70
+        tcttk_logotk = ImageTk.PhotoImage(tcttk_logo)
+        canvas = tk.Canvas(temcon_icon_frame, background="#219399", width=70, height=70, bd=2, highlightthickness=2, relief="ridge")
+        canvas.grid(row=0, column=0, ipady=10, ipadx=10)
+        canvas.create_image(48,48, image = tcttk_logotk)
+        title_label = ttk.Label(temcon_icon_frame,text="TemCon 2.1", font=("Roboto, sans-serif", 14, "bold"), anchor="center", justify="center", foreground="#448d76", background="#c4ecc4")
+        title_label.grid(row=0, column=1, columnspan=2, sticky="nsew", ipadx=8)
+        dss_logo = Image.open("imgs/dss_logo.png")
+        image_ratio = 70 / 70
+        dss_logotk = ImageTk.PhotoImage(dss_logo)
+        canvas2 = tk.Canvas(temcon_icon_frame, background="#219399", width=70, height=70, bd=2, highlightthickness=2, relief="ridge")
+        canvas2.grid(row=0, column=3, ipady=10, ipadx=10)
+        canvas2.create_image(48,48, image = dss_logotk)
+        temcon_icon_frame.grid(row=0, column=0, columnspan=4, sticky="nsew")
+        title_desc_label= ttk.Label(temcon_title_frame,text="Weather Reporting Temperature Conversion Tool", font=("Times New roman", 10, "bold"), anchor="center", foreground="#448d76", background="#c4ecc4")
+        title_desc_label.grid(row=1, column=0, sticky="ew", ipadx=5)
+        gpl_alert_label = ttk.Label(temcon_title_frame)
+        gpl_alert_label.configure(font=("Timew New Roman", 8, "bold"), padding=20, wraplength=290, justify="center", anchor="center", background='#519fd2',foreground='#9932cc', text="TemCon 2.1, Live Weather Reporting Temperature Conversion Tool\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.")
+        gpl_alert_label.grid(row=2, column=0, sticky="ew", ipadx=5, ipady=2)
+
+        def on_home_hover(event):
+                home_button.configure(style="hover.Toolbutton")
+
+
+        def on_leave_home_hover(event):
+                home_button.configure(style="splash.Toolbutton")
+
+
+        def on_live_hover(event):
+                live_button.configure(style="hover.Toolbutton")
+
+
+        def on_leave_live_hover(event):
+                live_button.configure(style="splash.Toolbutton")
+
+
+        def on_manual_hover(event):
+                manual_button.configure(style="hover.Toolbutton")
+
+
+        def on_leave_manual_hover(event):
+                manual_button.configure(style="splash.Toolbutton")
+
+
+        list_frame = tk.Frame(temcon_title_frame, bg="#219399")
+        live_button=ttk.Button(list_frame)
+        live_button.configure(text='Live', style="splash.Toolbutton", padding=5, width=7)
+        live_button.pack(fill="y", expand=True, side="left")
+        live_button.bind("<Button-1>", startLive)
+        live_button.bind("<Enter>", on_live_hover)
+        live_button.bind("<Leave>", on_leave_live_hover)
+        # live_button.bind("<Leave>", off_hover)
+        manual_button= ttk.Button(list_frame)
+        manual_button.configure(text='Manual', style="splash.Toolbutton", padding=5, width=7)
+        manual_button.pack(fill="y", expand=True, side="left")
+        manual_button.bind("<Button-1>", startManual)
+        manual_button.bind("<Enter>", on_manual_hover)
+        manual_button.bind("<Leave>", on_leave_manual_hover)
+        home_button=ttk.Button(list_frame)
+        home_button.configure(text='Home', style="splash.Toolbutton", padding=5, width=7)
+        home_button.pack(fill="y", expand=True, side="right")
+        home_button.bind("<Button-1>", startHome)
+        home_button.bind("<Enter>", on_home_hover)
+        home_button.bind("<Leave>", on_leave_home_hover)
+        list_frame.grid(row=3, column=0, sticky="nsew", padx=5, pady=7)
+        children = list_frame.winfo_children()
+
+        society_frame = tk.Frame(temcon_title_frame, bg="#219399")
+        #society_frame.configure(anchor="center")
+        society_title_label= ttk.Label(society_frame,text="dashWoorkZ Sovereign Society",  anchor="center", font=("Times New roman", 12, "bold"), foreground="#448d76", background="#c4ecc4", padding=2)
+        society_title_label.grid(row=0, column=0, sticky="ew")
+        society_copy_label= ttk.Label(society_frame,text="copyright 2024 - Without Prejudice - All Rights Reserved",  justify="center", anchor="center", font=("Times New roman", 10, "bold"), foreground="#448d76", background="#c4ecc4", padding=3)
+        society_copy_label.grid(row=1, column=0, sticky="nsew", ipadx=5)
+        society_frame.grid(row=4, column=0, sticky="nsew", columnspan=4)
+        temcon_title_frame.grid(row=0, column=0, rowspan=6, sticky="ew")
+        splash_frame.grid(row=0, column=0, sticky="nsew", ipadx=5)
+
+        splash_frame.rowconfigure(0, weight=1)
+        splash_frame.rowconfigure(1, weight=1)
+
+        temcon_title_frame.rowconfigure(0, weight=1)
+        temcon_title_frame.rowconfigure(1, weight=0)
+        temcon_title_frame.rowconfigure(2, weight=1)
+        temcon_title_frame.rowconfigure(3, weight=1)
+        temcon_title_frame.rowconfigure(4, weight=1)
+        temcon_title_frame.rowconfigure(5, weight=1)
+
+
+
+temcon_program_frame.grid_forget()
 
 window.configure(menu = menu)
+open_splash_window()
 
 window.mainloop()
 
