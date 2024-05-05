@@ -227,7 +227,7 @@ temcon_labelframe.configure(style="tested.TLabel")
 temcon_labelframe.grid(row=0, column=0, columnspan=2, sticky=tk.N, pady=5, padx=5)
 
 # ============= Logo in a Canvas ======================#
-temcon_logo = Image.open("imgs/tc2024Logo.png")
+temcon_logo = Image.open("imgs/tc2024Logo_100.png")
 image_ratio = temcon_logo.size[0] / temcon_logo.size[1]
 temcontk = ImageTk.PhotoImage(temcon_logo)
 canvas4 = tk.Canvas(temcon_labelframe, background="#219399", width=120, height=100, bd=2, highlightthickness=2, relief="ridge")
@@ -452,7 +452,7 @@ def searchTemp():
                 convTemp = round(temp * 1, 1)
                 live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}K", anchor="center")
                 converted_temps_one_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
-                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 273.15) * 1.8) + 32, 2), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 273.15) * 1.8) + 32, 1), width=7, anchor='center', justify="center")
                 converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 273.15, 1), width=7, anchor='center', justify="center")
                 converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 491.67, 1), width=7, anchor='center', justify="center")
                 return convScale.set(convScaleSet[0]) 
@@ -461,19 +461,19 @@ def searchTemp():
         elif ScaleConverted == "Fahrenheit":
                 convTemp = round(((temp - 273.15) * 1.8) + 32, 1)
                 live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}F", anchor="center")
-                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 32) / 1.79999999) + 273.15, 2), width=7, anchor='center', justify="center")
+                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp - 32) / 1.79999999) + 273.15, 1), width=7, anchor='center', justify="center")
                 converted_temps_two_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
-                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 32) * (5/9), 2),  width=7, anchor='center', justify="center")
-                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 459.67, 2) ,width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 32) * (5/9), 1),  width=7, anchor='center', justify="center")
+                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp + 459.67, 1) ,width=7, anchor='center', justify="center")
                 return convScale.set(convScaleSet[0]) 
 
 
         elif ScaleConverted == "Rankine":
                 convTemp = round(((temp - 273.15) * 1.8) + 491.67, 1)
                 live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}R", anchor="center")
-                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp- 491.67) / 1.79999999) + 273.15, 2), width=7, anchor='center', justify="center")
-                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 459.67, 2), width=7, anchor='center', justify="center")
-                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 491.67) / 1.79999999, 2), width=7, anchor='center', justify="center")
+                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(((convTemp- 491.67) / 1.79999999) + 273.15, 1), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp - 459.67, 1), width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp - 491.67) / 1.79999999, 1), width=7, anchor='center', justify="center")
                 converted_temps_four_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1), width=7, anchor='center', justify="center")
                 return convScale.set(convScaleSet[0]) 
 
@@ -481,17 +481,12 @@ def searchTemp():
         elif ScaleConverted == "Celcius":
                 convTemp = round(temp - 273.15, 1)
                 live_temperature_label.configure(style="livedescLabelLight.TLabel", font=("Times New Romant", 20, "bold"), text= f"{convTemp}C", anchor="center")
-                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp  + 273.15, 2), width=7, anchor='center', justify="center")
-                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp  * (9/5)) + 32, 2), width=7, anchor='center', justify="center")
-                converted_temps_three_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 2) , width=7, anchor='center', justify="center")
-                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp * 1.8) + 459.67, 2), width=7, anchor='center', justify="center")
+                converted_temps_one_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round(convTemp  + 273.15, 1), width=7, anchor='center', justify="center")
+                converted_temps_two_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp  * (9/5)) + 32, 1), width=7, anchor='center', justify="center")
+                converted_temps_three_labelframe_label.configure(style="selectedScaleLableFrameLabelLight.TLabel", text= round(convTemp * 1, 1) , width=7, anchor='center', justify="center")
+                converted_temps_four_labelframe_label.configure(style="convertedScaleLableFrameLableLight.TLabel", text= round((convTemp * 1.8) + 459.67, 1), width=7, anchor='center', justify="center")
                 return convScale.set(convScaleSet[0]) 
 
-
-
-def clearLiveCity():
-        live_city_temp_entry.delete(0, tk.END)
-        breakpoint
 
 
 temp_response_frame = ttk.Frame(master = liveconv_frame)
@@ -509,7 +504,6 @@ city_description_label.pack(fill="x", expand=False, side="top", ipady=5)
 live_city_temp_entry = ttk.Entry(master = cityButton_frame)
 live_city_temp_entry.configure(style="setTempLight.TEntry", justify="center", text="Enter City Here")
 live_city_temp_entry.pack(fill="both", expand=False, side="left")
-live_city_temp_entry.bind("<FocusIn>", live_city_temp_entry.delete(0, tk.END))
 temp_response_frame.columnconfigure(0, weight=1)
 temp_response_frame.rowconfigure(0, weight=1)
 temp_response_frame.columnconfigure(1, weight=1)
@@ -858,10 +852,6 @@ def open_privacy_window():
         # Lawful Privacy Statement
         lawful_privacy_frame = ttk.Frame(master=lawful_privacy_window)
         lawful_privacy_frame.configure(style="lawfulLight.TFrame")
-
-
-       # ---------------------------------------------------------------#
-        # ============= Logo to be put in a Canvas ======================
         privacy_frame = ttk.Frame(master=lawful_privacy_frame)
         privacy_frame.configure(style="privacyLight.TFrame")
         privacy_frame_label = ttk.Label(master=privacy_frame)
@@ -954,9 +944,9 @@ def open_splash_window():
         #splash_window = tk.Tk()
         from PIL import ImageTk, Image
         splash_window = Toplevel(window)
-        splash_window.title("Splash Screen")
+        splash_window.overrideredirect(True)
         width = 340
-        height = 544
+        height = 473
         x = (splash_window.winfo_screenwidth()//2)-(width//2)
         y = (splash_window.winfo_screenheight()//2)-(height//2)
         splash_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
@@ -989,22 +979,8 @@ def open_splash_window():
         splash_frame.configure(bg="#219399")
         temcon_title_frame = tk.Frame(splash_frame)
         temcon_title_frame.configure(bg="#219399")
-        temcon_icon_frame = tk.Frame(temcon_title_frame)
-        tcttk_logo = Image.open("imgs/tc2024Logo.png")
-        image_ratio = 70 / 70
-        tcttk_logotk = ImageTk.PhotoImage(tcttk_logo)
-        canvas = tk.Canvas(temcon_icon_frame, background="#219399", width=70, height=70, bd=2, highlightthickness=2, relief="ridge")
-        canvas.grid(row=0, column=0, ipady=10, ipadx=10)
-        canvas.create_image(48,48, image = tcttk_logotk)
-        title_label = ttk.Label(temcon_icon_frame,text="TemCon 2.1", font=("Roboto, sans-serif", 14, "bold"), anchor="center", justify="center", foreground="#448d76", background="#c4ecc4")
-        title_label.grid(row=0, column=1, columnspan=2, sticky="nsew", ipadx=8)
-        dss_logo = Image.open("imgs/dss_logo.png")
-        image_ratio = 70 / 70
-        dss_logotk = ImageTk.PhotoImage(dss_logo)
-        canvas2 = tk.Canvas(temcon_icon_frame, background="#219399", width=70, height=70, bd=2, highlightthickness=2, relief="ridge")
-        canvas2.grid(row=0, column=3, ipady=10, ipadx=10)
-        canvas2.create_image(48,48, image = dss_logotk)
-        temcon_icon_frame.grid(row=0, column=0, columnspan=4, sticky="nsew")
+        title_label = ttk.Label(temcon_title_frame,text="TemCon 2.1", font=("Roboto, sans-serif", 14, "bold"), anchor="center", justify="center", foreground="#448d76", background="#c4ecc4")
+        title_label.grid(row=0, column=0, columnspan=4, sticky="nsew", ipadx=8)
         title_desc_label= ttk.Label(temcon_title_frame,text="Weather Reporting Temperature Conversion Tool", font=("Times New roman", 10, "bold"), anchor="center", foreground="#448d76", background="#c4ecc4")
         title_desc_label.grid(row=1, column=0, sticky="ew", ipadx=5)
         gpl_alert_label = ttk.Label(temcon_title_frame)
@@ -1080,7 +1056,9 @@ def open_splash_window():
 
 
 
-temcon_program_frame.grid_forget()
+
+
+
 
 window.configure(menu = menu)
 open_splash_window()
